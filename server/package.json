@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "seed": "node seed-unified.js",
     "seed:users": "node seeders/chatSeeder.js",
     "seed:recognitions": "node seeders/recognitionSeeder.js",
     "test": "echo \"Error: no test specified\" && exit 1"

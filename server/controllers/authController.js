@@ -12,10 +12,12 @@ const generateToken = (id) => {
 // @access  Public
 const authUser = async (req, res) => {
     const { email, password } = req.body;
+    console.log(`[AUTH] Login attempt for: ${email}`);
 
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+        console.log(`[AUTH] Login successful for: ${user.name} (${user.email})`);
         res.json({
             _id: user._id,
             name: user.name,
@@ -25,6 +27,7 @@ const authUser = async (req, res) => {
             token: generateToken(user._id),
         });
     } else {
+        console.log(`[AUTH] Login failed for: ${email}`);
         res.status(401).json({ message: 'Invalid email or password' });
     }
 };
@@ -34,10 +37,12 @@ const authUser = async (req, res) => {
 // @access  Private/Admin
 const registerUser = async (req, res) => {
     const { name, email, password, role, department, designation, avatar, joiningDate, salary, status } = req.body;
+    console.log(`[AUTH] Registration attempt for: ${name} (${email})`);
 
     const userExists = await User.findOne({ email });
 
     if (userExists) {
+        console.log(`[AUTH] Registration failed - User already exists: ${email}`);
         res.status(400).json({ message: 'User already exists' });
         return;
     }
@@ -56,6 +61,7 @@ const registerUser = async (req, res) => {
     });
 
     if (user) {
+        console.log(`[AUTH] User registered successfully: ${user.name} (${user._id})`);
         res.status(201).json({
             _id: user._id,
             name: user.name,
@@ -69,6 +75,7 @@ const registerUser = async (req, res) => {
             status: user.status
         });
     } else {
+        console.log(`[AUTH] Registration failed - Invalid user data for: ${email}`);
         res.status(400).json({ message: 'Invalid user data' });
     }
 };
