@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth, useData } from '../hooks/useCustomHooks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Lock, Mail } from 'lucide-react';
 
 const Login = () => {
@@ -91,6 +91,15 @@ const Login = () => {
                     <p>Demo Credentials:</p>
                     <p>Admin: admin@hrms.com / admin</p>
                     <p>Employee: jane.smith@example.com / 123456</p>
+                </div>
+
+                <div className="mt-4 text-center text-sm">
+                    <p className="text-gray-600">
+                        Don't have an account?{' '}
+                        <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+                            Sign up
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>
